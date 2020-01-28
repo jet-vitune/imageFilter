@@ -161,7 +161,7 @@ public class InitialCropFragment extends BaseEditFragment {
         activity.mode = EditImageActivity.MODE_INITIAL_CROP;
 
         activity.mainImage.setScaleEnabled(true);
-        activity.onBackPressed();
+        activity.doSaveImage();
 
         if (selectedTextView != null) {
             selectedTextView.setTextColor(getColorFromRes(UNSELECTED_COLOR));
@@ -177,7 +177,7 @@ public class InitialCropFragment extends BaseEditFragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscriber -> loadingDialogListener.showLoadingDialog())
-                .doFinally(() -> loadingDialogListener.dismissLoadingDialog())
+                .doFinally(() -> loadingDialogListener.showLoadingDialog())
                 .subscribe(bitmap -> {
                     activity.changeMainBitmap(bitmap, true);
                     backToMain();
