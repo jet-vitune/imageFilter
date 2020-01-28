@@ -301,7 +301,13 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
                 saturationFragment.backToMain();
                 break;
             case MODE_INITIAL_CROP:
-                doSaveImage();
+                AlertDialog.Builder alertDialogBuilderCropImage = new AlertDialog.Builder(this);
+                alertDialogBuilderCropImage.setMessage(R.string.iamutkarshtiwari_github_io_ananas_exit_without_save)
+                        .setCancelable(false).setPositiveButton(R.string.iamutkarshtiwari_github_io_ananas_confirm, (dialog, id) ->
+                        finishActivity()).setNegativeButton(R.string.iamutkarshtiwari_github_io_ananas_cancel, (dialog, id) -> dialog.cancel());
+
+                AlertDialog alertDialogCropImage = alertDialogBuilderCropImage.create();
+                alertDialogCropImage.show();
                 break;
             default:
                 if (canAutoExit()) {
@@ -316,6 +322,12 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
                 }
                 break;
         }
+    }
+
+    private void finishActivity(){
+
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     public void changeMainBitmap(Bitmap newBit, boolean needPushUndoStack) {
@@ -385,7 +397,7 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
         finish();
     }
 
-    protected void doSaveImage() {
+    public void doSaveImage() {
         if (numberOfOperations <= 0)
             return;
 
@@ -402,6 +414,7 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
 
                         TextView textViewapply = (TextView) applyBtn;
                         if (textViewapply.getText().equals("Proceed")) {
+                            dismissLoadingDialog();
                             onSaveTaskDone();
                         } else {
                             bottomGallery.setCurrentItem(MODE_INITIAL_CROP);
@@ -597,6 +610,7 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
                     saturationFragment.applySaturation();
                     break;
                 case MODE_INITIAL_CROP:
+                    numberOfOperations++;
                     initialCropFragment.applyCropImage();
                     break;
                 default:
