@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:text="@string/iamutkarshtiwari_github_io_ananas_done"
                 android:textAllCaps="true"
-                android:textColor="#fd7d16"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:gravity="center"
                 android:text="@string/iamutkarshtiwari_github_io_ananas_apply"
                 android:textAllCaps="true"
-                android:textColor="#fd7d16"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </ViewFlipper>
     </RelativeLayout>
